@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - TiendaPro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">TiendaPro</a>
+        </div>
+    </nav>
+
+    <!-- Checkout Section -->
+    <div class="container checkout-container mt-5 pt-5">
+        <div class="row">
+            <!-- Resumen del Pedido -->
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span>Tu Carrito</span>
+                    <span class="badge bg-primary rounded-pill" id="cart-count">0</span>
+                </h4>
+                <div id="checkout-items" class="list-group mb-3">
+                    <!-- Items del carrito se insertarán aquí -->
+                </div>
+                <form id="promo-form" class="card p-2">
+                    <div class="input-group">
+                        <input type="text" id="promo-code" class="form-control" placeholder="Código promocional">
+                        <button type="submit" class="btn btn-secondary">Aplicar</button>
+                    </div>
+                    <small class="text-muted mt-2">Códigos disponibles: BIENVENIDO (10%), DESCUENTO20 (20%), PRIMAVERA (15%)</small>
+                </form>
+            </div>
+
+            <!-- Formulario de Pago -->
+            <div class="col-md-8 order-md-1">
+                <h4 class="mb-3">Información de Envío</h4>
+                <form id="checkout-form" class="needs-validation">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label class="form-label">Nombre</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Dirección</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="form-label">País</label>
+                            <select class="form-select" required>
+                                <option value="">Seleccionar...</option>
+                                <option>España</option>
+                                <option>México</option>
+                                <option>Colombia</option>
+                                <option>Argentina</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Código Postal</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h4 class="mb-3">Método de Pago</h4>
+                    <div class="payment-methods mb-3">
+                        <div class="form-check mb-2">
+                            <input type="radio" name="paymentMethod" class="form-check-input" value="credit" checked required>
+                            <label class="form-check-label">
+                                Tarjeta de Crédito/Débito
+                                <div class="card-icons mt-2">
+                                    <i class="fab fa-cc-visa fa-2x me-2"></i>
+                                    <i class="fab fa-cc-mastercard fa-2x me-2"></i>
+                                    <i class="fab fa-cc-amex fa-2x"></i>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input type="radio" name="paymentMethod" class="form-check-input" value="paypal" required>
+                            <label class="form-check-label">
+                                <i class="fab fa-paypal me-2"></i>PayPal
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="credit-card-form">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label">
+                                    Número de Tarjeta
+                                    <i id="card-type-icon" class="fab fa-cc-credit-card ms-2"></i>
+                                </label>
+                                <input type="text" id="card-number" class="form-control" maxlength="19" required>
+                                <small class="text-muted">Tarjetas de prueba: 4111111111111111 (Visa), 5555555555554444 (Mastercard)</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Fecha de Expiración</label>
+                                <input type="text" id="expiry-date" class="form-control" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">CVV</label>
+                                <input type="text" class="form-control" maxlength="4" required>
+                                <small class="text-muted">Los últimos 3 o 4 dígitos en el reverso de la tarjeta</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <button id="submit-payment" class="w-100 btn btn-primary btn-lg">
+                        Realizar Pago
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Processing Modal -->
+    <div class="modal fade" id="processingModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <div class="spinner-border text-primary mb-3" role="status"></div>
+                    <h5>Procesando tu pago...</h5>
+                    <p class="text-muted">Por favor, no cierres esta ventana.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" data-bs-backdrop="static" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-4">
+                    <i class="fas fa-check-circle text-success mb-3" style="font-size: 3rem;"></i>
+                    <h5>¡Pago Exitoso!</h5>
+                    <p>Tu pedido ha sido procesado correctamente.</p>
+                    <p>Número de Orden: <strong id="orderNumber"></strong></p>
+                    <button class="btn btn-primary" onclick="window.location.href='index.html'">
+                        Volver a la Tienda
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
