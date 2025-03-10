@@ -32,6 +32,12 @@ body {
 .hero-section {
     padding: 8rem 0 4rem;
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    background-image: url(/images/sean-pollock-PhYq704ffdA-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .hero-section h1 {
