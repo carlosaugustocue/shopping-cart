@@ -152,6 +152,13 @@ class Checkout {
             // Limpiar carrito y datos de checkout
             sessionStorage.removeItem('checkout_items');
             sessionStorage.removeItem('checkout_total');
+            
+            // Limpiar el carrito
+            localStorage.removeItem('cart');
+            if (window.cart) {
+                window.cart.items = [];
+                window.cart.updateCartCount();
+            }
 
             processingModal.hide();
             successModal.show();
